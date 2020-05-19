@@ -6,6 +6,8 @@
 
 ![test](Week6/Plots/fig%2012-all%20vars%20facet_wrap.png)
 
+### R code to produce
+
 ```R
 ggplot(dfAQ_long, 
        aes(x = Date,
