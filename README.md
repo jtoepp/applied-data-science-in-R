@@ -1,12 +1,12 @@
 ## Applied Data Science in R
-#### Projects completed as part of the Applied Data Science in R course at Syracuse University
+### Projects completed as part of the Applied Data Science in R course at Syracuse University
 
 *currently being edited, readme will be updated after file structure is finalized*
 
 
 ![test](Week6/Plots/fig%2012-all%20vars%20facet_wrap.png)
 
-### R code to produce
+#### R code to produce the graph
 
 ```R
 ggplot(dfAQ_long, 
