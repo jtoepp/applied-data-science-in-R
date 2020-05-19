@@ -7,15 +7,19 @@
 
 # ---------- HW6: Intro -----------
 # set working directory for the current project
-setwd("/Documents/College/Masters/SyracuseUniversity/IST 687 - Applied Data Science/Homework/Week 6")
+setwd(choose.dir())
 
 # include dependencies
 library(dplyr)
+library(tidyverse)
 library(ggplot2)
 library(imputeTS)
 library(tidyr)
 library(reshape2)
 library(grDevices)
+
+# set save location for the graphs
+pathGraphs = "./Plots"
 
 ## Step 1:  Load the data
 myAirQuality <- airquality
@@ -41,41 +45,35 @@ ggplot(dfAQ,aes(x = Ozone, fill = cut_interval(Ozone, n = 50))) +
   geom_histogram(show.legend = FALSE, bins = 25) + 
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(title = "Ozone Histogram")
-# save the histogram to file
-dev.copy(png,"fig 1-ozone histogram.png")
-# close the PNG device now that we are all done
-dev.off()
+  labs(title = "Ozone Histogram") 
+  ggsave("Fig01.png",
+         path = pathGraphs)
 
 ggplot(dfAQ,aes(x=Solar.R, fill = cut_interval(Solar.R, n = 50))) + 
   geom_histogram(show.legend = FALSE, bins = 25) + 
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5)) +
   labs(title = "Solar Histogram")
-# save the histogram to file
-dev.copy(png,"fig 2-solrad histogram.png")
-# close the PNG device now that we are all done
-dev.off()
+  ggsave("Fig02.png",
+         path = pathGraphs)
 
 ggplot(dfAQ,aes(x=Wind, fill = cut_interval(Wind, n = 50))) + 
   geom_histogram(show.legend = FALSE, bins = 25) + 
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(title = "Wind Histogram")
-# save the histogram to file
-dev.copy(png,"fig 3-wind histogram.png")
-# close the PNG device now that we are all done
-dev.off()
+  labs(title = "Wind Histogram") +
+  ggsave("Fig03.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 ggplot(dfAQ,aes(x=Temp, fill = cut_interval(Temp, n = 50))) + 
   geom_histogram(show.legend = FALSE, bins = 25) + 
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(title = "Temperature Histogram")
-# save the histogram to file
-dev.copy(png,"fig 4-temperature histogram.png")
-# close the PNG device now that we are all done
-dev.off()
+  labs(title = "Temperature Histogram") +
+  ggsave("Fig04.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 # function for histograms -- attempted but could not get titles to pass variables
 # gg_hist <- function(df, val) {
@@ -99,22 +97,20 @@ ggplot(dfAQ, aes(x = factor(0), y = Ozone)) +
   geom_boxplot(fill = "lightgreen") +
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(title = "Ozone Boxplot")
-# save the histogram to file
-dev.copy(png,"fig 5-ozone boxplot.png")
-# close the PNG device now that we are all done
-dev.off()
+  labs(title = "Ozone Boxplot") +
+  ggsave("Fig05.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 # wind boxplot
 ggplot(dfAQ, aes(x = factor(0), y = Wind)) + 
   geom_boxplot(fill = "lightblue") +
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(title = "Wind Boxplot")
-# save the histogram to file
-dev.copy(png,"fig 6-wind boxplot.png")
-# close the PNG device now that we are all done
-dev.off()
+  labs(title = "Wind Boxplot") +
+  ggsave("Fig06.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 
 ## Step 4:  Explore how the data changes over time
@@ -139,44 +135,40 @@ ggplot(dfAQ, aes(x = Date, y = Ozone)) +
   geom_point(color = "green") + 
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(title = "Ozone Line Graph/Scatter Plot")
-# save the histogram to file
-dev.copy(png,"fig 7-ozone line-scatter.png")
-# close the PNG device now that we are all done
-dev.off()
+  labs(title = "Ozone Line Graph/Scatter Plot") +
+  ggsave("Fig07.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 ggplot(dfAQ, aes(x = Date, y = Solar.R)) + 
   geom_line(color = "red3") + 
   geom_point(color = "yellow3") + 
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(title = "Solar Radiation Line Graph/Scatter Plot")
-# save the histogram to file
-dev.copy(png,"fig 8-solar rad line-scatter.png")
-# close the PNG device now that we are all done
-dev.off()
+  labs(title = "Solar Radiation Line Graph/Scatter Plot") +
+  ggsave("Fig08.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 ggplot(dfAQ, aes(x = Date, y = Wind)) + 
   geom_line(color = "purple") + 
   geom_point(color = "pink") + 
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(title = "Wind Line Graph/Scatter Plot")
-# save the histogram to file
-dev.copy(png,"fig 9-wind line-scatter.png")
-# close the PNG device now that we are all done
-dev.off()
+  labs(title = "Wind Line Graph/Scatter Plot") +
+  ggsave("Fig09.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 ggplot(dfAQ, aes(x = Date, y = Temp)) + 
   geom_line(color = "lightblue") + 
   geom_point(color = "orange") + 
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(title = "Temperature Line Graph/Scatter Plot")
-# save the histogram to file
-dev.copy(png,"fig 10-temp line-scatter.png")
-# close the PNG device now that we are all done
-dev.off()
+  labs(title = "Temperature Line Graph/Scatter Plot") +
+  ggsave("Fig10.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 # combined line charts -- could have also used melt() function
 # remove extraneous columns and create a dataframe that is more conducive to plotting on one graph
@@ -215,11 +207,10 @@ ggplot(dfAQ_long_scaledWind,
   theme_dark() +
   labs(title = "Air Quality Dataset (1973)",
        subtitle = "Overlapping plots of each variable* in the dataset",
-       caption = "*wind has been scaled by 10 to have a similar scale as the other variables")
-# save the histogram to file
-dev.copy(png,"fig 11-all vars line-scatter.png")
-# close the PNG device now that we are all done
-dev.off()
+       caption = "*wind has been scaled by 10 to have a similar scale as the other variables") +
+  ggsave("Fig11.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 # playing around with facets
 ggplot(dfAQ_long, 
@@ -240,23 +231,28 @@ ggplot(dfAQ_long,
        Solar (Watts per square meter)
        Wind (Miles per Hour)
        Temp (degrees Fahrenheit)",
-       ylab = "Values*")
-# save the histogram to file
-dev.copy(png,"fig 12-all vars facet_wrap.png")
-# close the PNG device now that we are all done
-dev.off()
+       ylab = "Values*") +
+  ggsave("Fig12.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 ## Step 4:  Look at all the data via a heatmap
 ggplot(dfAQ_long,
        aes(x = Date,
            y = Variable)) +
   geom_tile(aes(fill = Value)) +
-  scale_fill_gradient(low="white", high="blue")
+  scale_fill_gradient(low="white", high="blue") +
+  ggsave("Fig13.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 ## Step 5:  Look at all the data via a scatter chart
 ggplot(dfAQ, aes(x = Wind, y = Temp)) +
   geom_point(aes(size = Ozone, color = Solar.R)) +
-  theme_dark()
+  theme_dark() +
+  ggsave("Fig14.png",
+         plot = last_plot(),
+         path = pathGraphs)
 
 ## Step 6:  Final Analysis
 ## Patterns
