@@ -4,7 +4,7 @@
 *currently being edited, readme will be updated after file structure is finalized*
 
 
-![test](Week6/Plots/fig%2012-all%20vars%20facet_wrap.png)
+![test](Week6/Plots/Fig12.png)
 
 #### R code to produce the graph
 
