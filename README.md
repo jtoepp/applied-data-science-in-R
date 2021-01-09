@@ -1,11 +1,11 @@
-## Applied Data Science in R
+# Applied Data Science in R
 ### Projects completed as part of the Applied Data Science in R course at Syracuse University
 
 
 
 ![test](Week6/Plots/Fig12.png)
 
-#### R code to produce the graph
+##### R code to produce the graph
 
 ```R
 ggplot(dfAQ_long, 
