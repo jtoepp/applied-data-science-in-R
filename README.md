@@ -5,7 +5,7 @@
 
 ![test](Week6/Plots/Fig12.png)
 
-##### R code to produce the graph
+#### R code to produce the graph
 
 ```R
 ggplot(dfAQ_long, 
